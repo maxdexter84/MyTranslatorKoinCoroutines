@@ -12,7 +12,7 @@ class Repository ( context: Context) {
 
 
     suspend fun getTranslate(word: String)= withContext(Dispatchers.IO){
-            Retrofit.api.searchAsync(word)
+            Retrofit.api.searchAsync(word).await()
         }
 
     }

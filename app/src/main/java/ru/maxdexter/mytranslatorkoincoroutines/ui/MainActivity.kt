@@ -63,16 +63,9 @@ class MainActivity: AppCompatActivity() {
         viewModel.appState.observe(this, { appState ->
             when (appState) {
                 is AppState.Success -> {
-                    val result = appState.data
-                    if (result == null || result.isEmpty()) {
-                        showViewError()
-                    }else  {
                         showViewSuccess()
-                        mainAdapter?.setData(result)
-                        mainAdapter?.setItemClickListener {
-
-                        }
-                    }
+                        appState.data?.let { mainAdapter?.setData(it) }
+                        mainAdapter?.setItemClickListener {}
                 }
                 is AppState.Error -> {
                     showViewError()
