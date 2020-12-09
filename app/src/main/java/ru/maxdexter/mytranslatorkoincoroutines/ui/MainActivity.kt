@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.maxdexter.translatorcoincoroutine.R
+
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
-import ru.maxdexter.translatorcoincoroutine.databinding.ActivityMainBinding
+
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchFragment
+import ru.maxdexter.translatorcoincoroutine.R
+import ru.maxdexter.translatorcoincoroutine.databinding.ActivityMainBinding
 
 
 class MainActivity: AppCompatActivity() {

@@ -30,7 +30,7 @@ class MainViewModel (private val repository: Repository):ViewModel (){
 
         }
     }
-    
+
     private fun handleParseData(res:List<SearchResult>?) =
         if (res.isNullOrEmpty()) {
             _appState.value = AppState.Error(throw Exception("Данные не получены"))

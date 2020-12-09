@@ -3,8 +3,10 @@ package ru.maxdexter.mytranslatorkoincoroutines.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.maxdexter.translatorcoincoroutine.databinding.ListItemTranslatorBinding
+
 import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
+import ru.maxdexter.translatorcoincoroutine.databinding.ListItemTranslatorBinding
+
 
 class MainAdapter(): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     private var list: List<SearchResult>? = null

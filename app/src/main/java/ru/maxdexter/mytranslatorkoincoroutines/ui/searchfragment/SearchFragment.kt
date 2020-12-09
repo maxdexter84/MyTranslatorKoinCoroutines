@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
+
 class SearchFragment : BottomSheetDialogFragment() {
     var onClickListener:((String)->Unit)? = null
 
