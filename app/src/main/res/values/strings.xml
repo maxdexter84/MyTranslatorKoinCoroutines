@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyTranslator</string>
+    <string name="error_textview_stub">Ошибка сервера</string>
+    <string name="reload_button">Перезагрузка</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="tv_title">Введите слово для перевода</string>
+</resources>
