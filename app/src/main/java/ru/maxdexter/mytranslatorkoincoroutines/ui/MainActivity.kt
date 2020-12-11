@@ -46,7 +46,6 @@ class MainActivity: AppCompatActivity() {
             }
             supportFragmentManager.beginTransaction().add(fragment, "BOTTOM_SHEET")
                 .commitAllowingStateLoss()
-
         }
     }
 
@@ -68,7 +67,6 @@ class MainActivity: AppCompatActivity() {
                     }
                 }
             }
-
         })
     }
 
