@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import okhttp3.Dispatcher
 
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
 import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
@@ -12,6 +13,7 @@ import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 
 
 class MainViewModel (private val repository: Repository):ViewModel (){
+
 
 
     private val _appState = MutableLiveData<AppState>()
@@ -23,7 +25,8 @@ class MainViewModel (private val repository: Repository):ViewModel (){
         _appState.value = AppState.Loading
         viewModelScope.launch {
             try {
-                handleParseData(repository.getTranslate(word))
+                delay(500)
+                handleParseData(repository.getTranslate(word,isOnline))
             }catch (e: Exception){
                 _appState.value = AppState.Error(e)
             }
