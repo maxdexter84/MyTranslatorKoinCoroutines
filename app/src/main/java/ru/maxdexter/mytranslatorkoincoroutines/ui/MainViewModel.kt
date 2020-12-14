@@ -15,7 +15,7 @@ import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 class MainViewModel (private val repository: Repository):ViewModel (){
 
     private val _appState = MutableLiveData<AppState>()
-        val appState: LiveData<AppState>
+    val appState: LiveData<AppState>
         get() = _appState
 
     fun getData(word: String, isOnline: Boolean){
@@ -35,8 +35,8 @@ class MainViewModel (private val repository: Repository):ViewModel (){
             _appState.value = AppState.Error(throw Exception("Данные не получены"))
         }else  {
             _appState.value = AppState.Success(res)
-            }
-    }
+        }
+}
 
 
 

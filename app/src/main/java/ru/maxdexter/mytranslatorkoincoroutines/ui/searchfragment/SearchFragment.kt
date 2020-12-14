@@ -7,18 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.viewmodel.ext.android.viewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.mainfragment.MainFragmentViewModel
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
 
-class SearchFragment : BottomSheetDialogFragment() {
+class SearchFragment : Fragment() {
     private var onClickListener:((String)->Unit)? = null
 
     fun setClickListener(listener:(String)-> Unit){
         onClickListener = listener
     }
+
+    private val mainViewModel: MainViewModel by viewModel()
     companion object {
         fun newInstance() = SearchFragment()
     }
@@ -41,7 +47,8 @@ class SearchFragment : BottomSheetDialogFragment() {
         binding.etSearch.doAfterTextChanged { s ->
             if (s != null) {
                 if (s.length >= 2) {
-                    onClickListener?.invoke(s.toString())
+                    mainViewModel.getData(s.toString(),true)
+                   // onClickListener?.invoke(s.toString())
                 }
             }
         }

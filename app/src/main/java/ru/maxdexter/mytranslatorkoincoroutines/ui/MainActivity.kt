@@ -11,6 +11,7 @@ import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
+import ru.maxdexter.mytranslatorkoincoroutines.ui.mainfragment.MainFragment
 import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchFragment
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.ActivityMainBinding
@@ -24,6 +25,8 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container_main,MainFragment(),"MAIN_FRAGMENT").addToBackStack("MAIN_FRAGMENT") .commitAllowingStateLoss()
 
     }
 

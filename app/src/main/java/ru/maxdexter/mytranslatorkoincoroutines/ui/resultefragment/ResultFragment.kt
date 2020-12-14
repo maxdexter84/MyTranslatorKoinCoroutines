@@ -8,8 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
+import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.mainfragment.MainFragmentViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchFragment
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.ResultFragmentBinding
 
@@ -19,23 +23,20 @@ class ResultFragment : Fragment() {
         fun newInstance() = ResultFragment()
     }
     private var mainAdapter: MainAdapter? = null
-    private lateinit var viewModel: ResultViewModel
+    private val viewModel: ResultViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     private lateinit var binding: ResultFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.result_fragment, container, false)
         renderData()
         initRecycler()
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ResultViewModel::class.java)
-    }
 
     private fun initRecycler() {
         mainAdapter = MainAdapter()
@@ -46,7 +47,7 @@ class ResultFragment : Fragment() {
     }
 
     private fun renderData() {
-        viewModel.appState.observe(viewLifecycleOwner, { appState ->
+        mainViewModel.appState.observe(viewLifecycleOwner, { appState ->
             when (appState) {
                 is AppState.Success -> {
                     showViewSuccess()
@@ -59,6 +60,7 @@ class ResultFragment : Fragment() {
                 is AppState.Loading -> {
                     showViewLoading()
                     binding.reloadButton.setOnClickListener {
+
                     }
                 }
             }
