@@ -14,7 +14,7 @@ import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
 
 class SearchFragment : BottomSheetDialogFragment() {
-    var onClickListener:((String)->Unit)? = null
+    private var onClickListener:((String)->Unit)? = null
 
     fun setClickListener(listener:(String)-> Unit){
         onClickListener = listener

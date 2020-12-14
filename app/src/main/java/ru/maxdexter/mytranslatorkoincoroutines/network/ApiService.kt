@@ -12,4 +12,7 @@ interface ApiService {
 
     @GET("words/search")
     fun searchAsync(@Query("search") searchWord: String) : Deferred<List<SearchResult>>
+
+    @GET("meanings")
+    fun meaningsAsync(@Query("meanings") meanings: String) : Deferred<List<SearchResult>>
 }

@@ -1,6 +1,7 @@
 package ru.maxdexter.mytranslatorkoincoroutines.diKoin
 
 import android.content.Context
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
@@ -16,5 +17,6 @@ val application = module {
 val mainScreen = module {
     // Функция factory сообщает Koin, что эту зависимость нужно создавать каждый
 // раз заново, что как раз подходит для Activity и её компонентов.
-    factory { MainViewModel(get(named("REPO"))) }
+   // factory { MainViewModel(get(named("REPO"))) }
+    viewModel {  MainViewModel(get(named("REPO")))  }
 }
