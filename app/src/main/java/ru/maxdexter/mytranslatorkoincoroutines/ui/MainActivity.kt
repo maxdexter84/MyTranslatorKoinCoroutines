@@ -2,6 +2,7 @@ package ru.maxdexter.mytranslatorkoincoroutines.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,9 +26,17 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.bottomAppBar)
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container_main,MainFragment(),"MAIN_FRAGMENT").commitAllowingStateLoss()
 
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container_main,MainFragment(),"MAIN_FRAGMENT").addToBackStack("MAIN_FRAGMENT") .commitAllowingStateLoss()
+    }
 
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.app_bar_menu, menu)
+        return true
     }
 
 }
