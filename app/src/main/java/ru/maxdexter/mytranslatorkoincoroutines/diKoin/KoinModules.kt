@@ -1,12 +1,11 @@
 package ru.maxdexter.mytranslatorkoincoroutines.diKoin
 
-import android.content.Context
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
-import ru.maxdexter.mytranslatorkoincoroutines.ui.resultefragment.ResultViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchViewModel
 
 val application = module {
     // Функция single сообщает Koin, что эта зависимость должна храниться
@@ -20,5 +19,5 @@ val mainScreen = module {
 // раз заново, что как раз подходит для Activity и её компонентов.
    // factory { MainViewModel(get(named("REPO"))) }
     single { MainViewModel(get(named("REPO"))) }
-    viewModel { ResultViewModel(get(named("REPO"))) }
+    viewModel { SearchViewModel(get(named("REPO"))) }
 }

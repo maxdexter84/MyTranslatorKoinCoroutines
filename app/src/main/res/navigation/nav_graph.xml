@@ -21,7 +21,13 @@
         android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.MainActivity"
         android:label="MainActivity" />
     <fragment
-        android:id="@+id/resultFragment"
-        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.resultefragment.ResultFragment"
-        android:label="ResultFragment" />
+        android:id="@+id/bookmarkFragment"
+        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.bookmarkfragment.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.settingsfragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
