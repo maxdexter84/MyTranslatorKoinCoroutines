@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph.xml">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/historyFragment">
 
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment.HistoryFragment"
+        android:label="history_fragment"
+        tools:layout="@layout/history_fragment" />
+    <action android:id="@+id/action_global_historyFragment" app:destination="@id/historyFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchFragment"
+        android:label="SearchFragment" />
+    <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.MainActivity"
+        android:label="MainActivity" />
 </navigation>

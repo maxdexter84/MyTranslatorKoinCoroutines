@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
-import ru.maxdexter.mytranslatorkoincoroutines.ui.mainfragment.MainFragmentViewModel
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 

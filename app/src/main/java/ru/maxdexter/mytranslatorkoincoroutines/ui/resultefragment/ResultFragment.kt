@@ -6,14 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
 import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
-import ru.maxdexter.mytranslatorkoincoroutines.ui.mainfragment.MainFragmentViewModel
-import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchFragment
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.ResultFragmentBinding
 

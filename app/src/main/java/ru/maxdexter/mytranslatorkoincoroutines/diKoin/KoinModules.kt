@@ -6,7 +6,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
-import ru.maxdexter.mytranslatorkoincoroutines.ui.mainfragment.MainFragmentViewModel
 import ru.maxdexter.mytranslatorkoincoroutines.ui.resultefragment.ResultViewModel
 
 val application = module {
@@ -22,5 +21,4 @@ val mainScreen = module {
    // factory { MainViewModel(get(named("REPO"))) }
     single { MainViewModel(get(named("REPO"))) }
     viewModel { ResultViewModel(get(named("REPO"))) }
-    viewModel { MainFragmentViewModel(get(named("REPO"))) }
 }
