@@ -3,11 +3,11 @@
 <item
     android:id="@+id/historyFragment"
     android:title="History"
-    android:icon="@drawable/ic_baseline_bookmarks_24"
+    android:icon="@drawable/ic_baseline_history_24"
     />
     <item
         android:id="@+id/bookmarkFragment"
-        android:icon="@drawable/ic_baseline_history_24"
+        android:icon="@drawable/ic_baseline_bookmarks_24"
         android:orderInCategory="2"
         android:title="Bookmark" />
     <item
