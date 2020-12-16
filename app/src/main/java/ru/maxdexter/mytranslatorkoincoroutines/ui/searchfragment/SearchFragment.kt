@@ -16,7 +16,7 @@ import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
 
-class SearchFragment : Fragment() {
+class SearchFragment : BottomSheetDialogFragment() {
     private var onClickListener:((String)->Unit)? = null
 
     fun setClickListener(listener:(String)-> Unit){
