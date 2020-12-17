@@ -3,30 +3,39 @@ package ru.maxdexter.mytranslatorkoincoroutines.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
 import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
+import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
 import ru.maxdexter.translatorcoincoroutine.databinding.ListHistoryItemBinding
 
-class HistoryAdapter : ListAdapter<HistoryModel, HistoryAdapter.HistoryViewHolder>(HistoryDiffCallback()) {
+class HistoryAdapter(private val listener: OnListItemClickListener) : ListAdapter<DetailModel, HistoryAdapter.HistoryViewHolder>(HistoryDiffCallback()) {
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, listener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder.from(parent)
     }
-    class HistoryViewHolder private constructor(private val binding: ListHistoryItemBinding): RecyclerView.ViewHolder(binding.root){
+
+    interface OnListItemClickListener{
+        fun onClick(detailModel: DetailModel)
+    }
+   class HistoryViewHolder private constructor(private val binding: ListHistoryItemBinding): RecyclerView.ViewHolder(binding.root){
 
 
-        fun bind(historyModel: HistoryModel){
-            binding.tvHeaderHistoryItem.text = historyModel.query
-            binding.tvDescriptionHistoryItem.text = historyModel.translate
+        fun bind(detailModel: DetailModel,listener: OnListItemClickListener ){
+            binding.tvHeaderHistoryItem.text = detailModel.word
+            binding.tvDescriptionHistoryItem.text = detailModel.translate
+            itemView.setOnClickListener {
+                listener.onClick(detailModel)
+            }
         }
         companion object{
             fun from(parent: ViewGroup): HistoryViewHolder{
@@ -40,14 +49,16 @@ class HistoryAdapter : ListAdapter<HistoryModel, HistoryAdapter.HistoryViewHolde
 
 }
 
-class HistoryDiffCallback : DiffUtil.ItemCallback<HistoryModel>(){
-    override fun areItemsTheSame(oldItem: HistoryModel, newItem: HistoryModel): Boolean {
-        return oldItem.query == newItem.query
+class HistoryDiffCallback : DiffUtil.ItemCallback<DetailModel>(){
+    override fun areItemsTheSame(oldItem: DetailModel, newItem: DetailModel): Boolean {
+        return oldItem.word == newItem.word
     }
 
-    override fun areContentsTheSame(oldItem: HistoryModel, newItem: HistoryModel): Boolean {
+    override fun areContentsTheSame(oldItem: DetailModel, newItem: DetailModel): Boolean {
         return oldItem == newItem
     }
+
+
 
 }
 

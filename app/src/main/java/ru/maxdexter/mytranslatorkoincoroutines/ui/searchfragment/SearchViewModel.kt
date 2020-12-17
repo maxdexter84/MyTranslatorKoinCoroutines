@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
+import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
 import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 
@@ -24,31 +25,21 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             try {
                 delay(1000)
-                handleParseData(repository.getTranslate(word,isOnline))
+                val res = repository.getTranslate(word,isOnline)
+                _appState.value = AppState.Success(res)
             }catch (e: Exception){
                 _appState.value = AppState.Error(e)
             }
         }
     }
 
-    private fun handleParseData(res:List<SearchResult>?){
-        _appState.value = AppState.Success(res)
-        viewModelScope.launch {
-            if (res != null)
-            saveHistoryData(res)
-        }
-    }
 
-    private suspend fun saveHistoryData(res: List<SearchResult>){
-        flow {
-            emit(res)
-        }.flowOn(Dispatchers.IO).collectLatest {
-            delay(1000)
-            val query = res[0].text
-            val translate = res[0].meanings?.get(0)?.translation?.translation
-            if (query != null && translate != null)
-            repository.addHistory(HistoryModel(query,translate))
+     fun saveHistoryData(detailModel: DetailModel){
+         viewModelScope.launch {
+             repository.addHistory(detailModel)
+         }
+
         }
-    }
+
 
 }

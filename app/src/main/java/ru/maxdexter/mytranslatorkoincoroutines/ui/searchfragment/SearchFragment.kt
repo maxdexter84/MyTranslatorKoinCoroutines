@@ -37,9 +37,19 @@ class SearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun mapToDetailModel(it: SearchResult): DetailModel {
-        val word = it.text
-        val description = it.meanings?.get(0)?.translation?.translation
-        val imageUrl = it.meanings?.get(0)?.imageUrl
+        val meanings = it.meanings
+        var word = " "
+        var description = ""
+        var imageUrl = ""
+        if (it.meanings != null && it.text != null){
+            word = it.text
+            for(str in it.meanings){
+                description += "${it.meanings[0].translation?.translation ?: " "} \n"
+            }
+            imageUrl = it.meanings[0].imageUrl ?: ""
+
+        }
+
         return DetailModel(word,description,imageUrl)
     }
 
@@ -58,6 +68,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             override fun onItemClick(data: SearchResult) {
                 val detailModel = mapToDetailModel(data)
                 findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailFragment(detailModel))
+                searchViewModel.saveHistoryData(detailModel)
             }
         })
         binding.recycler.apply {
