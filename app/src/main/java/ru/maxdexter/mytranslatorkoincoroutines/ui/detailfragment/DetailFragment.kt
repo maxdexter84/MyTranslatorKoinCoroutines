@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import ru.maxdexter.mytranslatorkoincoroutines.extensions.loadImage
 import ru.maxdexter.translatorcoincoroutine.R
+import ru.maxdexter.translatorcoincoroutine.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
 
@@ -15,12 +18,21 @@ class DetailFragment : Fragment() {
     }
 
     private lateinit var viewModel: DetailViewModel
-
+    private lateinit var binding: FragmentDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_detail, container, false)
+        val args = arguments?.let { DetailFragmentArgs.fromBundle(it).detailModel }
+        if (args != null){
+            binding.ivImageDetail.loadImage(binding,args.imageUrl)
+            binding.tvDescriptionDetail.text = args.translate
+            binding.tvHeaderDetail.text = args.word
+        }
+
+
+        return binding.root
     }
 
 

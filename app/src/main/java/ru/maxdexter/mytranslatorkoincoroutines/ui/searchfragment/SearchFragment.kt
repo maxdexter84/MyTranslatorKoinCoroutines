@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
+import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
 import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.translatorcoincoroutine.R
@@ -30,7 +32,15 @@ class SearchFragment : BottomSheetDialogFragment() {
         textListener()
         renderData()
         initRecycler()
+
         return binding.root
+    }
+
+    private fun mapToDetailModel(it: SearchResult): DetailModel {
+        val word = it.text
+        val description = it.meanings?.get(0)?.translation?.translation
+        val imageUrl = it.meanings?.get(0)?.imageUrl
+        return DetailModel(word,description,imageUrl)
     }
 
     private fun textListener() {
@@ -44,7 +54,12 @@ class SearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun initRecycler() {
-        mainAdapter = MainAdapter()
+        mainAdapter = MainAdapter(object : MainAdapter.OnListItemClickListener{
+            override fun onItemClick(data: SearchResult) {
+                val detailModel = mapToDetailModel(data)
+                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailFragment(detailModel))
+            }
+        })
         binding.recycler.apply {
             adapter = mainAdapter
             layoutManager = LinearLayoutManager(context)
@@ -57,7 +72,7 @@ class SearchFragment : BottomSheetDialogFragment() {
                 is AppState.Success<*> -> {
                     parseLoadError(binding,appState)
                     appState.data?.let { mainAdapter?.setData(it as List<SearchResult>) }
-                    mainAdapter?.setItemClickListener {}
+
                 }
                 is AppState.Error -> {
                     parseLoadError(binding,appState)

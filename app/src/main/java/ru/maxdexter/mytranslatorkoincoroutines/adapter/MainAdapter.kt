@@ -8,19 +8,18 @@ import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
 import ru.maxdexter.translatorcoincoroutine.databinding.ListItemTranslatorBinding
 
 
-class MainAdapter(): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(var onListItemClickListener: OnListItemClickListener): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     private var list: List<SearchResult>? = null
-    inner class ViewHolder(private var binding: ListItemTranslatorBinding): RecyclerView.ViewHolder(binding.root) {
+   inner class ViewHolder(private var binding: ListItemTranslatorBinding): RecyclerView.ViewHolder(binding.root) {
 
 
         fun bind(data: SearchResult){
-            binding.apply {
-                tvHeader.text = data.text
-                tvDescription.text = data.meanings?.get(0)?.translation?.translation
+            binding.tvHeader.text = data.text
+            binding.tvDescription.text = data.meanings?.get(0)?.translation?.translation
+            itemView.setOnClickListener {
+                onListItemClickListener.onItemClick(data)
             }
-            setItemClickListener {
-                onItemClickListener?.invoke(data)
-            }
+
         }
 
 
@@ -48,10 +47,10 @@ class MainAdapter(): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         return list?.size ?: 0
     }
 
-    private var onItemClickListener: ((SearchResult)->Unit)? = null
-
-    fun setItemClickListener(listener: ((SearchResult) -> Unit)){
-            onItemClickListener = listener
+    interface OnListItemClickListener {
+        fun onItemClick(data: SearchResult)
     }
+
+
 
 }
