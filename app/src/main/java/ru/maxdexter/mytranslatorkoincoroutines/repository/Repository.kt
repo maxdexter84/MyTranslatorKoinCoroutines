@@ -3,6 +3,7 @@ import android.content.Context
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import ru.maxdexter.mytranslatorkoincoroutines.db.Database
 import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
 import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
@@ -29,7 +30,7 @@ class Repository ( context: Context, val database: Database) {
 
 
     fun getAllHistory(): Flow<List<HistoryModel>>{
-        return database.getDao().getAll()
+        return database.getDao().getAll().flowOn(Dispatchers.IO)
     }
 
     }

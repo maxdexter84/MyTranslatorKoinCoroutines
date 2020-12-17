@@ -23,7 +23,7 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
         _appState.value = AppState.Loading
         viewModelScope.launch {
             try {
-                delay(500)
+                delay(1000)
                 handleParseData(repository.getTranslate(word,isOnline))
             }catch (e: Exception){
                 _appState.value = AppState.Error(e)
@@ -42,7 +42,8 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
     private suspend fun saveHistoryData(res: List<SearchResult>){
         flow {
             emit(res)
-        }.debounce(3000).flowOn(Dispatchers.IO).collect {
+        }.flowOn(Dispatchers.IO).collectLatest {
+            delay(1000)
             val query = res[0].text
             val translate = res[0].meanings?.get(0)?.translation?.translation
             if (query != null && translate != null)

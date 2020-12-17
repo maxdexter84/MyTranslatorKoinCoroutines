@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
+import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
+import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
+import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.HistoryFragmentBinding
 
@@ -34,7 +37,17 @@ class HistoryFragment : Fragment() {
             adapter = historyAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
+        viewModel.getHistoryData()
+        viewModel.historyData.observe(viewLifecycleOwner,{
+            when(it){
+                is AppState.Loading -> parseLoadError(binding,it)
+                is AppState.Success<*> ->{
+                    parseLoadError(binding,it)
+                    historyAdapter.submitList(it.data as List<HistoryModel>)
+                }
+                is AppState.Error -> parseLoadError(binding,it)
+            }
+        })
 
         return binding.root
     }

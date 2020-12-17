@@ -12,6 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
+import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
+import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
@@ -52,16 +54,16 @@ class SearchFragment : BottomSheetDialogFragment() {
     private fun renderData() {
         searchViewModel.appState.observe(viewLifecycleOwner, { appState ->
             when (appState) {
-                is AppState.Success -> {
-                    showViewSuccess()
-                    appState.data?.let { mainAdapter?.setData(it) }
+                is AppState.Success<*> -> {
+                    parseLoadError(binding,appState)
+                    appState.data?.let { mainAdapter?.setData(it as List<SearchResult>) }
                     mainAdapter?.setItemClickListener {}
                 }
                 is AppState.Error -> {
-                    showViewError()
+                    parseLoadError(binding,appState)
                 }
                 is AppState.Loading -> {
-                    showViewLoading()
+                    parseLoadError(binding,appState)
                     binding.reloadButton.setOnClickListener {
 
                     }
@@ -69,25 +71,4 @@ class SearchFragment : BottomSheetDialogFragment() {
             }
         })
     }
-
-
-    private fun showViewError() {
-        binding.successLinearLayout.visibility = View.GONE
-        binding.loadingFrameLayout.visibility = View.GONE
-        binding.errorLinearLayout.visibility = View.VISIBLE
-    }
-
-
-    private fun showViewSuccess() {
-        binding.successLinearLayout.visibility = View.VISIBLE
-        binding.loadingFrameLayout.visibility = View.GONE
-        binding.errorLinearLayout.visibility = View.GONE
-    }
-
-    private fun showViewLoading() {
-        binding.successLinearLayout.visibility = View.GONE
-        binding.loadingFrameLayout.visibility = View.VISIBLE
-        binding.errorLinearLayout.visibility = View.GONE
-    }
-
 }

@@ -25,8 +25,8 @@ class HistoryAdapter : ListAdapter<HistoryModel, HistoryAdapter.HistoryViewHolde
 
 
         fun bind(historyModel: HistoryModel){
-            binding.historyItem = historyModel
-            binding.executePendingBindings()
+            binding.tvHeaderHistoryItem.text = historyModel.query
+            binding.tvDescriptionHistoryItem.text = historyModel.translate
         }
         companion object{
             fun from(parent: ViewGroup): HistoryViewHolder{
