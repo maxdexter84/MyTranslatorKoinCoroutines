@@ -17,18 +17,8 @@ import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
 
 class SearchFragment : BottomSheetDialogFragment() {
-    private var onClickListener:((String)->Unit)? = null
     private var mainAdapter: MainAdapter? = null
-    fun setClickListener(listener:(String)-> Unit){
-        onClickListener = listener
-    }
-
     private val searchViewModel: SearchViewModel by viewModel()
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
-
-    private lateinit var viewModel: SearchViewModel
     private lateinit var binding: SearchFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +36,6 @@ class SearchFragment : BottomSheetDialogFragment() {
             if (s != null) {
                 if (s.length >= 2) {
                     searchViewModel.getData(s.toString(),true)
-                   // onClickListener?.invoke(s.toString())
                 }
             }
         }
@@ -83,22 +72,22 @@ class SearchFragment : BottomSheetDialogFragment() {
 
 
     private fun showViewError() {
-        binding.successLinearLayout.visibility = android.view.View.GONE
-        binding.loadingFrameLayout.visibility = android.view.View.GONE
-        binding.errorLinearLayout.visibility = android.view.View.VISIBLE
+        binding.successLinearLayout.visibility = View.GONE
+        binding.loadingFrameLayout.visibility = View.GONE
+        binding.errorLinearLayout.visibility = View.VISIBLE
     }
 
 
     private fun showViewSuccess() {
-        binding.successLinearLayout.visibility = android.view.View.VISIBLE
-        binding.loadingFrameLayout.visibility = android.view.View.GONE
-        binding.errorLinearLayout.visibility = android.view.View.GONE
+        binding.successLinearLayout.visibility = View.VISIBLE
+        binding.loadingFrameLayout.visibility = View.GONE
+        binding.errorLinearLayout.visibility = View.GONE
     }
 
     private fun showViewLoading() {
-        binding.successLinearLayout.visibility = android.view.View.GONE
-        binding.loadingFrameLayout.visibility = android.view.View.VISIBLE
-        binding.errorLinearLayout.visibility = android.view.View.GONE
+        binding.successLinearLayout.visibility = View.GONE
+        binding.loadingFrameLayout.visibility = View.VISIBLE
+        binding.errorLinearLayout.visibility = View.GONE
     }
 
 }

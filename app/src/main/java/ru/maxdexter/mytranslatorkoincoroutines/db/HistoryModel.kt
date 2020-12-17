@@ -9,6 +9,5 @@ import ru.maxdexter.mytranslatorkoincoroutines.model.Meanings
 data class HistoryModel (
     @PrimaryKey
     val query: String,
-    val translate: String,
-    val meanings: String)  {
+    val translate: String)  {
 }

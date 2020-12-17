@@ -3,16 +3,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
 import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
 import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
 import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
 
 class SearchViewModel(private val repository: Repository) : ViewModel() {
-
-
-
 
     private val _appState = MutableLiveData<AppState>()
     val appState: LiveData<AppState>
@@ -30,10 +31,23 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    private fun handleParseData(res:List<SearchResult>?) =
-        if (res.isNullOrEmpty()) {
-            _appState.value = AppState.Error(throw Exception("Данные не получены"))
-        }else  {
-            _appState.value = AppState.Success(res)
+    private fun handleParseData(res:List<SearchResult>?){
+        _appState.value = AppState.Success(res)
+        viewModelScope.launch {
+            if (res != null)
+            saveHistoryData(res)
         }
+    }
+
+    private suspend fun saveHistoryData(res: List<SearchResult>){
+        flow {
+            emit(res)
+        }.debounce(3000).flowOn(Dispatchers.IO).collect {
+            val query = res[0].text
+            val translate = res[0].meanings?.get(0)?.translation?.translation
+            if (query != null && translate != null)
+            repository.addHistory(HistoryModel(query,translate))
+        }
+    }
+
 }
