@@ -23,10 +23,10 @@ object Versions{
     const val support_lib = "1.0.0"
     const val lifecycle = "2.2.0"
     const val recyclerview = "1.1.0"
-    //test
-    const val junit = "4.13.1"
-    const val ext_junit = "1.1.2"
-    const val espresso = "3.3.0"
+    // Test
+    const val jUnit = "4.12"
+    const val runner = "1.2.0"
+    const val espressoCore = "3.2.0"
     //Design
     const val material = "1.2.1"
     //Kotlin
@@ -50,7 +50,15 @@ object Versions{
     //Room
     const val room = "2.2.5"
 
+    // Tools
+    const val multidex = "1.0.3"
+
 }
+
+object Tools {
+    const val multidex = "com.android.support:multidex:${Versions.multidex}"
+}
+
 object Libs {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val constraintLayout =
@@ -62,11 +70,11 @@ object Libs {
     const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
 }
     //Test
-object Test{
-    const val junit = "junit:junit:${Versions.junit}"
-    const val ext_junit = "androidx.test.ext:junit:${Versions.ext_junit}"
-    const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-}
+    object TestImpl {
+        const val junit = "junit:junit:${Versions.jUnit}"
+        const val runner = "androidx.test:runner:${Versions.runner}"
+        const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    }
 
     //Design
 object Design {
