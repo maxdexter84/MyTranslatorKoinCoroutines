@@ -1,4 +1,4 @@
-package ru.maxdexter.mytranslatorkoincoroutines.model
+package ru.maxdexter.repository.model
 
 import android.os.Parcelable
 import androidx.room.Entity

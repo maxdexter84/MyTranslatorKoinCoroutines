@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
+import ru.maxdexter.repository.model.SearchResult
 import ru.maxdexter.translatorcoincoroutine.databinding.ListItemTranslatorBinding
 
 

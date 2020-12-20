@@ -44,6 +44,6 @@
         android:label="DetailFragment" >
         <argument
             android:name="detailModel"
-            app:argType="ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel" />
+            app:argType="ru.maxdexter.repository.model.DetailModel" />
     </fragment>
 </navigation>

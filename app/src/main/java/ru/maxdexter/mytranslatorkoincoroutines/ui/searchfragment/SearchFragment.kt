@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
+import ru.maxdexter.repository.model.AppState
+import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.model.SearchResult
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
@@ -42,11 +42,11 @@ class SearchFragment : BottomSheetDialogFragment() {
         var description = ""
         var imageUrl = ""
         if (it.meanings != null && it.text != null){
-            word = it.text
-            for(str in it.meanings){
-                description += "${it.meanings[0].translation?.translation ?: " "} \n"
+            word = it.text!!
+            for(str in it.meanings!!){
+                description += "${it.meanings!![0].translation?.translation ?: " "} \n"
             }
-            imageUrl = it.meanings[0].imageUrl ?: ""
+            imageUrl = it.meanings!![0].imageUrl ?: ""
 
         }
 

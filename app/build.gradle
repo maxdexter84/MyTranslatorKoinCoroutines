@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    //Modules
+    implementation project(Modules.repository)
     //support lib
     implementation Libs.appcompat
     implementation Libs.constraintLayout
@@ -85,7 +87,7 @@ dependencies {
     kapt  Glide.glide_annotationProcessor
 
 
-// Room
+    // Room
     implementation Room.room_runtime
     implementation Room.room_ktx
     kapt Room.room_compiler_kapt

@@ -1,16 +1,12 @@
-package ru.maxdexter.mytranslatorkoincoroutines.repository
-import android.content.Context
+package ru.maxdexter.repository.repository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import ru.maxdexter.mytranslatorkoincoroutines.db.Database
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
-import ru.maxdexter.mytranslatorkoincoroutines.network.Retrofit
+import ru.maxdexter.repository.db.Database
+import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.network.Retrofit
 
-class Repository ( context: Context, val database: Database) {
+class Repository ( val database: Database) {
 
 
     suspend fun getTranslate(word: String, isOnline: Boolean)= withContext(Dispatchers.IO){

@@ -13,8 +13,12 @@ object Releases {
     const val version_name = "1.0"
 }
 
-object Modules{
-
+object Modules {
+    const val app = ":app"
+    const val repository = ":repository"
+//    const val utils = ":utils"
+//    //Features
+//    const val historyScreen = ":historyScreen"
 }
 
 object Versions{

@@ -3,16 +3,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
-import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
+import ru.maxdexter.repository.model.AppState
+import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.repository.Repository
 
 class SearchViewModel(private val repository: Repository) : ViewModel() {
 

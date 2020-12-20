@@ -1,12 +1,11 @@
-package ru.maxdexter.mytranslatorkoincoroutines.network
+package ru.maxdexter.repository.network
 
 
 
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
+import ru.maxdexter.repository.model.SearchResult
 
 interface ApiService {
 

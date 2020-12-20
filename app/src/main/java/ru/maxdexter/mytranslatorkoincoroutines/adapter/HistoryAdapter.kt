@@ -1,16 +1,13 @@
 package ru.maxdexter.mytranslatorkoincoroutines.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
+import ru.maxdexter.repository.model.DetailModel
 import ru.maxdexter.translatorcoincoroutine.databinding.ListHistoryItemBinding
 
 class HistoryAdapter(private val listener: OnListItemClickListener) : ListAdapter<DetailModel, HistoryAdapter.HistoryViewHolder>(HistoryDiffCallback()) {

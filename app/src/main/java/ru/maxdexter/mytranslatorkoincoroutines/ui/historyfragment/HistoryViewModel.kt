@@ -4,13 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
-import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
+import ru.maxdexter.repository.model.AppState
+import ru.maxdexter.repository.repository.Repository
 
 class HistoryViewModel(private val repository: Repository) : ViewModel() {
 

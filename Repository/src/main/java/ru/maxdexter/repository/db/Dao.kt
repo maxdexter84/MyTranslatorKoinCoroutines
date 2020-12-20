@@ -1,9 +1,8 @@
-package ru.maxdexter.mytranslatorkoincoroutines.db
+package ru.maxdexter.repository.db
 import androidx.room.*
 import androidx.room.Dao
-import com.google.android.material.circularreveal.CircularRevealHelper
 import kotlinx.coroutines.flow.Flow
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
+import ru.maxdexter.repository.model.DetailModel
 
 
 @Dao

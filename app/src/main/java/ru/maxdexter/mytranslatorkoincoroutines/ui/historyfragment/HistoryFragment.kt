@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
+import ru.maxdexter.repository.model.AppState
+import ru.maxdexter.repository.model.DetailModel
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.HistoryFragmentBinding
 
