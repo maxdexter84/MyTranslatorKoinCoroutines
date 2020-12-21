@@ -29,4 +29,9 @@ class HistoryViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+
+
+    fun deleteHistoryItem(position: Int) {
+
+    }
 }
