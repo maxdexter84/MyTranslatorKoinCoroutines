@@ -1,15 +1,18 @@
 package ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
@@ -51,14 +54,14 @@ class HistoryFragment : Fragment() {
         initRecycler()
         viewModel.getHistoryData()
         dataObserve()
-        addItemTouchHalper()
+        addItemTouchHelper()
 
 
 
         return binding.root
     }
 
-    private fun addItemTouchHalper() {
+    private fun addItemTouchHelper() {
         val simpleCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP,
             ItemTouchHelper.LEFT
@@ -74,7 +77,16 @@ class HistoryFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 if (direction == ItemTouchHelper.LEFT) {
-                    viewModel.deleteHistoryItem(position)
+                    AlertDialog.Builder(requireActivity()).setMessage("Удалить").setPositiveButton("Да"
+                    ) { dialog, which ->
+                        viewModel.deleteHistoryItem(position)
+                        dialog?.dismiss()
+                    }.setNegativeButton("Нет"
+                    ) { dialog, which ->
+                        historyAdapter.notifyItemChanged(position)
+                        dialog?.dismiss()
+                    }.show()
+
                 }
             }
         }
