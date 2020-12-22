@@ -7,6 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.maxdexter.repository.model.AppState
 import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.model.SearchResult
 import ru.maxdexter.repository.repository.Repository
 
 class SearchViewModel(private val repository: Repository) : ViewModel() {
@@ -19,9 +20,9 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
         _appState.value = AppState.Loading
         viewModelScope.launch {
             try {
-                delay(1000)
                 val res = repository.getTranslate(word,isOnline)
-                _appState.value = AppState.Success(res)
+               // _appState.value = AppState.Success(res)
+                _appState.value = AppState.Success(parseWord(res,word))
             }catch (e: Exception){
                 _appState.value = AppState.Error(e)
             }
@@ -35,6 +36,17 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
          }
 
         }
+
+    fun parseWord(list: List<SearchResult>, query: String): List<String>{
+        var onlyWordList = mutableListOf<String>()
+        list.filter { it.text?.contains(query) == true }.forEach { it.text?.let { word ->
+            onlyWordList.add(
+                word
+            )
+        } }
+        return onlyWordList
+
+    }
 
 
 }
