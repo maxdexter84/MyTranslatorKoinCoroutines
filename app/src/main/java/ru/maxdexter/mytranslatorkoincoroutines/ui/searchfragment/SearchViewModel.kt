@@ -16,13 +16,15 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
     val appState: LiveData<AppState>
         get() = _appState
 
+    private lateinit var currentWordList: MutableList<SearchResult>
+
     fun getData(word: String, isOnline: Boolean){
         _appState.value = AppState.Loading
         viewModelScope.launch {
             try {
                 val res = repository.getTranslate(word,isOnline)
-               // _appState.value = AppState.Success(res)
-                _appState.value = AppState.Success(parseWord(res,word))
+                currentWordList = res as MutableList<SearchResult>
+                _appState.value = AppState.Success(res)
             }catch (e: Exception){
                 _appState.value = AppState.Error(e)
             }
@@ -37,16 +39,8 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
 
         }
 
-    fun parseWord(list: List<SearchResult>, query: String): List<String>{
-        var onlyWordList = mutableListOf<String>()
-        list.filter { it.text?.contains(query) == true }.forEach { it.text?.let { word ->
-            onlyWordList.add(
-                word
-            )
-        } }
-        return onlyWordList
 
-    }
+
 
 
 }

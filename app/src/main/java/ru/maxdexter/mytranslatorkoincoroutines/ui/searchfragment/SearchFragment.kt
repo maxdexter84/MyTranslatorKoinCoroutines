@@ -49,9 +49,7 @@ class SearchFragment : BottomSheetDialogFragment() {
         var imageUrl = ""
         if (it.meanings != null && it.text != null){
             word = it.text!!
-            for(str in it.meanings!!){
-                description += "${it.meanings!![0].translation?.translation ?: " "} \n"
-            }
+            description = it.meanings!![0].translation?.translation.toString()
             imageUrl = it.meanings!![0].imageUrl ?: ""
 
         }
@@ -91,8 +89,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             when (appState) {
                 is AppState.Success<*> -> {
                     parseLoadError(binding, appState)
-                  //  appState.data?.let { mainAdapter?.setData(it as List<SearchResult>)}
-                    appState.data?.let { parseWord(it as MutableList<String>)}
+                    appState.data?.let { mainAdapter?.setData(it as List<SearchResult>)}
 
 
                 }
@@ -109,8 +106,4 @@ class SearchFragment : BottomSheetDialogFragment() {
         })
     }
 
-    private fun parseWord(list: MutableList<String>) {
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, list)
-            binding.etSearch.setAdapter(adapter)
-    }
 }

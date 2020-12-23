@@ -34,11 +34,6 @@
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark" />
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.settingsfragment.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
         android:id="@+id/detailFragment"
         android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.detailfragment.DetailFragment"
         android:label="DetailFragment" >
