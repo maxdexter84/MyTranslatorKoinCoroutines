@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.maxdexter.repository.db.HistoryModel
 import ru.maxdexter.repository.model.AppState
-import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.repository.repository.Repository
 
 class HistoryViewModel(private val repository: Repository) : ViewModel() {

@@ -1,6 +1,5 @@
 package ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.repository.model.AppState
-import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.HistoryFragmentBinding
 

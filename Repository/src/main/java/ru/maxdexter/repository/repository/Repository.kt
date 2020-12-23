@@ -3,7 +3,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import ru.maxdexter.repository.db.Database
-import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.repository.network.Retrofit
 
 class Repository ( val database: Database) {

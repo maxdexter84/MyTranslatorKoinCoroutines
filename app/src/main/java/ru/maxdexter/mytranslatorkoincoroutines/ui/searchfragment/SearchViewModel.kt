@@ -3,10 +3,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.maxdexter.repository.model.AppState
-import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.repository.model.SearchResult
 import ru.maxdexter.repository.repository.Repository
 
