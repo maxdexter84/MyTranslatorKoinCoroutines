@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.20"
+    ext.kotlin_version = "1.4.21"
     repositories {
         google()
         jcenter()
@@ -19,6 +19,32 @@ allprojects {
     repositories {
         google()
         jcenter()
+    }
+}
+
+/**
+ * Так как у нас должно быть много модулей с одинаковыми параметрами,
+ * такими как compileSdkVersion, minSdkVersion,
+ * targetSdkVersion и Java compatibility,
+ * имеет смысл автоматически прописывать эти параметры для всех модулей.
+ * Сами данные для зависимостей мы уже берем из файла Dependencies.*/
+subprojects {
+    afterEvaluate { project ->
+        if (project.plugins.findPlugin('android') ?: project.plugins.findPlugin('android-library')) {
+            android {
+                compileSdkVersion Config.compile_sdk
+
+                defaultConfig {
+                    minSdkVersion Config.min_sdk
+                    targetSdkVersion Config.target_sdk
+                }
+
+                compileOptions {
+                    sourceCompatibility Config.java_version
+                    targetCompatibility Config.java_version
+                }
+            }
+        }
     }
 }
 

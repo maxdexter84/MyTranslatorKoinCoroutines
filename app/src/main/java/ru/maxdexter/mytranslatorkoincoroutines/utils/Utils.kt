@@ -1,7 +1,7 @@
 package ru.maxdexter.mytranslatorkoincoroutines.utils
 
 import android.view.View
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
+import ru.maxdexter.repository.model.AppState
 import ru.maxdexter.translatorcoincoroutine.databinding.HistoryFragmentBinding
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 

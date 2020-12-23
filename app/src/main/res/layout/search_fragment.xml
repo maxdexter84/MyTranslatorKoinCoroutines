@@ -17,7 +17,7 @@
         android:paddingEnd="@dimen/space_16dp"
         tools:ignore="RtlSymmetry">
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

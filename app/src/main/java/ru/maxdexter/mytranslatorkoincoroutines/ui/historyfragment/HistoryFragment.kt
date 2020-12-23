@@ -1,20 +1,23 @@
 package ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment
 
+import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
+import ru.maxdexter.repository.model.AppState
+import ru.maxdexter.repository.model.DetailModel
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.HistoryFragmentBinding
 
@@ -26,9 +29,13 @@ class HistoryFragment : Fragment() {
     private lateinit var binding: HistoryFragmentBinding
     private val viewModel: HistoryViewModel by viewModel()
     private val historyAdapter: HistoryAdapter by lazy {
-        HistoryAdapter(object : HistoryAdapter.OnListItemClickListener{
+        HistoryAdapter(object : HistoryAdapter.OnListItemClickListener {
             override fun onClick(detailModel: DetailModel) {
-                findNavController().navigate(HistoryFragmentDirections.actionHistoryFragmentToDetailFragment(detailModel))
+                findNavController().navigate(
+                    HistoryFragmentDirections.actionHistoryFragmentToDetailFragment(
+                        detailModel
+                    )
+                )
             }
         })
     }
@@ -37,24 +44,78 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(layoutInflater,R.layout.history_fragment,container, false)
+        binding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.history_fragment,
+            container,
+            false
+        )
 
-        binding.historyRecycler.apply {
-            adapter = historyAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+        initRecycler()
         viewModel.getHistoryData()
-        viewModel.historyData.observe(viewLifecycleOwner,{
-            when(it){
-                is AppState.Loading -> parseLoadError(binding,it)
-                is AppState.Success<*> ->{
-                    parseLoadError(binding,it)
-                    historyAdapter.submitList(it.data as List<DetailModel>)
-                }
-                is AppState.Error -> parseLoadError(binding,it)
-            }
-        })
+        dataObserve()
+        addItemTouchHelper()
+
+
 
         return binding.root
     }
+
+    private fun addItemTouchHelper() {
+        val simpleCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                if (direction == ItemTouchHelper.LEFT) {
+                    AlertDialog.Builder(requireActivity()).setMessage("Удалить").setPositiveButton("Да"
+                    ) { dialog, which ->
+                        viewModel.deleteHistoryItem(position)
+                        dialog?.dismiss()
+                    }.setNegativeButton("Нет"
+                    ) { dialog, which ->
+                        historyAdapter.notifyItemChanged(position)
+                        dialog?.dismiss()
+                    }.show()
+
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(binding.historyRecycler)
+    }
+
+
+    private fun initRecycler() {
+        binding.historyRecycler.apply {
+            adapter = historyAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+
+        }
+
+    }
+
+    private fun dataObserve() {
+        viewModel.historyData.observe(viewLifecycleOwner, {
+            when (it) {
+                is AppState.Loading -> parseLoadError(binding, it)
+                is AppState.Success<*> -> {
+                    parseLoadError(binding, it)
+                    historyAdapter.submitList(it.data as List<DetailModel>)
+                }
+                is AppState.Error -> parseLoadError(binding, it)
+            }
+        })
+    }
+
+
 }

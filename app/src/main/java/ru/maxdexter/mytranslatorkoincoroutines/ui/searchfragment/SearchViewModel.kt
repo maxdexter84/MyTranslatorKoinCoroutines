@@ -3,16 +3,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import ru.maxdexter.mytranslatorkoincoroutines.db.HistoryModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.AppState
-import ru.maxdexter.mytranslatorkoincoroutines.model.DetailModel
-import ru.maxdexter.mytranslatorkoincoroutines.model.SearchResult
-import ru.maxdexter.mytranslatorkoincoroutines.repository.Repository
+import ru.maxdexter.repository.model.AppState
+import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.model.SearchResult
+import ru.maxdexter.repository.repository.Repository
 
 class SearchViewModel(private val repository: Repository) : ViewModel() {
 
@@ -20,12 +16,14 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
     val appState: LiveData<AppState>
         get() = _appState
 
+    private lateinit var currentWordList: MutableList<SearchResult>
+
     fun getData(word: String, isOnline: Boolean){
         _appState.value = AppState.Loading
         viewModelScope.launch {
             try {
-                delay(1000)
                 val res = repository.getTranslate(word,isOnline)
+                currentWordList = res as MutableList<SearchResult>
                 _appState.value = AppState.Success(res)
             }catch (e: Exception){
                 _appState.value = AppState.Error(e)
@@ -40,6 +38,9 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
          }
 
         }
+
+
+
 
 
 }

@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    //Modules
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Test
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.runner
+    androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Design
+    implementation Design.material
+
+    //Kotlin
+    implementation Kotlin.core_ktx
+    implementation Kotlin.stdlib
+    implementation Kotlin.kotlinx_coroutines_core
+    implementation Kotlin.kotlinx_coroutines_android
+
+    //Retrofit 2
+    implementation  Retrofit.retrofit
+    implementation  Retrofit.converter_gson
+    implementation  Retrofit.logging_interceptor
+    implementation  Retrofit.coroutines_adapter
+    // Room
+    implementation Room.room_runtime
+    implementation Room.room_ktx
+    kapt Room.room_compiler_kapt
+
+
+
+
+
+}
