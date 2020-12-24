@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.extensions.loadImage
 import ru.maxdexter.repository.db.DetailModel
@@ -19,7 +20,7 @@ class DetailFragment : Fragment() {
         fun newInstance() = DetailFragment()
     }
 
-    private  val viewModel: DetailViewModel by viewModel()
+    private  val viewModel: DetailViewModel by currentScope.inject()
     private lateinit var binding: FragmentDetailBinding
     private lateinit var model: DetailModel
     @SuppressLint("UseCompatLoadingForDrawables")

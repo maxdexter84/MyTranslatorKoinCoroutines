@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
@@ -25,7 +26,7 @@ class HistoryFragment : Fragment() {
         fun newInstance() = HistoryFragment()
     }
     private lateinit var binding: HistoryFragmentBinding
-    private val viewModel: HistoryViewModel by viewModel()
+    private val viewModel: HistoryViewModel by currentScope.inject()
     private val historyAdapter: HistoryAdapter by lazy {
         HistoryAdapter(object : HistoryAdapter.OnListItemClickListener {
             override fun onClick(detailModel: DetailModel) {

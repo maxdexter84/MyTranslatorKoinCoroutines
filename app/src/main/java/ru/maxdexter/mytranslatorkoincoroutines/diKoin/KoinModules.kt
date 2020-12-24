@@ -4,12 +4,17 @@ import androidx.room.Room
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import ru.maxdexter.mytranslatorkoincoroutines.ui.MainActivity
 import ru.maxdexter.repository.db.Database
 import ru.maxdexter.repository.repository.Repository
 import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.bookmarkfragment.BookmarkFragment
 import ru.maxdexter.mytranslatorkoincoroutines.ui.bookmarkfragment.BookmarkViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.detailfragment.DetailFragment
 import ru.maxdexter.mytranslatorkoincoroutines.ui.detailfragment.DetailViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment.HistoryFragment
 import ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment.HistoryViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchFragment
 import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchViewModel
 
 val application = module {
@@ -24,9 +29,31 @@ val mainScreen = module {
     // Функция factory сообщает Koin, что эту зависимость нужно создавать каждый
 // раз заново, что как раз подходит для Activity и её компонентов.
    // factory { MainViewModel(get(named("REPO"))) }
-    single { MainViewModel(get(named("REPO"))) }
-    viewModel { SearchViewModel(get(named("REPO"))) }
-    viewModel { HistoryViewModel(get(named("REPO"))) }
-    viewModel { DetailViewModel(get(named("REPO"))) }
-    viewModel { BookmarkViewModel(get(named("REPO"))) }
+    scope(named<MainActivity>()){
+        viewModel { MainViewModel(get(named("REPO"))) }
+    }
+}
+
+val searchViewModel = module {
+    scope(named<SearchFragment>()){
+        viewModel { SearchViewModel(get(named("REPO"))) }
+    }
+}
+
+val historyScreen = module{
+    scope(named<HistoryFragment>()){
+        viewModel { HistoryViewModel(get(named("REPO"))) }
+    }
+}
+
+val detailScreen = module {
+    scope(named<DetailFragment>()){
+        viewModel { DetailViewModel(get(named("REPO"))) }
+    }
+}
+
+val bookmarkScreeen = module {
+    scope(named<BookmarkFragment>()){
+        viewModel { BookmarkViewModel(get(named("REPO"))) }
+    }
 }

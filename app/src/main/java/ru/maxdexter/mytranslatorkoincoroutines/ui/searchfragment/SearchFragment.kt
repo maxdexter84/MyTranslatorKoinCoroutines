@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
@@ -22,7 +23,7 @@ import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
 
 class SearchFragment : BottomSheetDialogFragment() {
     private var mainAdapter: MainAdapter? = null
-    private val searchViewModel: SearchViewModel by viewModel()
+    private val searchViewModel: SearchViewModel by currentScope.inject()
     private lateinit var binding: SearchFragmentBinding
     private var wordList: MutableList<String> = mutableListOf()
     override fun onCreateView(

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.HistoryAdapter
 import ru.maxdexter.repository.db.DetailModel
@@ -18,14 +19,14 @@ import ru.maxdexter.translatorcoincoroutine.databinding.FragmentDetailBinding
 
 class BookmarkFragment : Fragment() {
     lateinit var binding: FragmentBookmarkBinding
-    val adapter: HistoryAdapter by lazy {
+    private val adapter: HistoryAdapter by lazy {
         HistoryAdapter(object : HistoryAdapter.OnListItemClickListener{
             override fun onClick(detailModel: DetailModel) {
                 findNavController().navigate(BookmarkFragmentDirections.actionBookmarkFragmentToDetailFragment(detailModel))
             }
         })
     }
-    private val viewModel:BookmarkViewModel  by viewModel()
+    private val viewModel:BookmarkViewModel  by currentScope.inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

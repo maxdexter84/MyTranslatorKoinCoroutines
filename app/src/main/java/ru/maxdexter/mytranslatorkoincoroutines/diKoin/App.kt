@@ -9,7 +9,8 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(listOf(application, mainScreen))
+            modules(listOf(application, mainScreen, searchViewModel, historyScreen, detailScreen,
+                bookmarkScreeen))
         }
     }
 }
