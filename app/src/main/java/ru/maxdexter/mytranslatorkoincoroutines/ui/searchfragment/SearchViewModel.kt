@@ -1,9 +1,13 @@
 package ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import okio.IOException
 import ru.maxdexter.repository.model.AppState
 import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.repository.model.SearchResult
@@ -37,6 +41,23 @@ class SearchViewModel(private val repository: Repository) : ViewModel() {
          }
 
         }
+
+    @InternalCoroutinesApi
+    fun isExistence(detail: DetailModel): DetailModel?{
+        var detailModel: DetailModel? = null
+        viewModelScope.launch {
+            try {
+                repository.isExistenceInTable(detail.word).collectLatest {
+                    if(!it.isNullOrEmpty()){
+                        detailModel = it[0]
+                    }
+                }
+            }catch (e: IOException){
+                Log.i("IO", e.stackTrace.toString())
+            }
+        }
+        return detailModel
+    }
 
 
 

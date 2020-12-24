@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
@@ -25,7 +26,8 @@ class SearchFragment : BottomSheetDialogFragment() {
     private var mainAdapter: MainAdapter? = null
     private val searchViewModel: SearchViewModel by currentScope.inject()
     private lateinit var binding: SearchFragmentBinding
-    private var wordList: MutableList<String> = mutableListOf()
+
+    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,16 +65,20 @@ class SearchFragment : BottomSheetDialogFragment() {
         }
     }
 
+    @InternalCoroutinesApi
     private fun initRecycler() {
         mainAdapter = MainAdapter(object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: SearchResult) {
                 val detailModel = mapToDetailModel(data)
-                findNavController().navigate(
-                    SearchFragmentDirections.actionSearchFragmentToDetailFragment(
-                        detailModel
+                val detailModelInTable = searchViewModel.isExistence(detailModel)
+                if(detailModelInTable == null){
+                    searchViewModel.saveHistoryData(detailModel)
+                    findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailFragment(detailModel))
+                } else {
+                    findNavController().navigate(
+                        SearchFragmentDirections.actionSearchFragmentToDetailFragment(detailModelInTable)
                     )
-                )
-                searchViewModel.saveHistoryData(detailModel)
+                }
             }
         })
         binding.recycler.apply {
@@ -87,8 +93,6 @@ class SearchFragment : BottomSheetDialogFragment() {
                 is AppState.Success<*> -> {
                     parseLoadError(binding, appState)
                     appState.data?.let { mainAdapter?.setData(it as List<SearchResult>)}
-
-
                 }
                 is AppState.Error -> {
                     parseLoadError(binding, appState)

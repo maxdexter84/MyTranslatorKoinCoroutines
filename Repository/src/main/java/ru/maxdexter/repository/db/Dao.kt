@@ -2,6 +2,7 @@ package ru.maxdexter.repository.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow
 
 
@@ -20,4 +21,7 @@ interface Dao {
 
     @Query("SELECT * FROM detailmodel WHERE bookmark=:flag")
     fun getAllBookmarks(flag: Boolean = true): LiveData<List<DetailModel>>
+
+    @Query("SELECT * FROM detailmodel WHERE word=:word ")
+    fun getByWordAsync(word: String): Flow<List<DetailModel>>
 }

@@ -30,4 +30,11 @@ class Repository ( val database: Database) {
         return database.getDao().getAll().flowOn(Dispatchers.IO)
     }
 
+
+     fun isExistenceInTable(word: String): Flow<List<DetailModel>> {
+       return database.getDao().getByWordAsync(word).flowOn(Dispatchers.IO)
     }
+
+
+
+}
