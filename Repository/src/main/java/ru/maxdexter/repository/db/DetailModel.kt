@@ -1,4 +1,4 @@
-package ru.maxdexter.repository.model
+package ru.maxdexter.repository.db
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -11,4 +11,5 @@ data class DetailModel (
     @PrimaryKey
     val word: String = "",
     val translate: String = "",
+    var bookmark: Boolean = false,
     val imageUrl: String = "") : Parcelable

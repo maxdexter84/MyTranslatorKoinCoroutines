@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.translatorcoincoroutine.databinding.ListHistoryItemBinding
 
 class HistoryAdapter(private val listener: OnListItemClickListener) : ListAdapter<DetailModel, HistoryAdapter.HistoryViewHolder>(HistoryDiffCallback()) {
@@ -27,7 +27,7 @@ class HistoryAdapter(private val listener: OnListItemClickListener) : ListAdapte
    class HistoryViewHolder private constructor(private val binding: ListHistoryItemBinding): RecyclerView.ViewHolder(binding.root){
 
 
-        fun bind(detailModel: DetailModel,listener: OnListItemClickListener ){
+        fun bind(detailModel: DetailModel, listener: OnListItemClickListener ){
             binding.tvHeaderHistoryItem.text = detailModel.word
             binding.tvDescriptionHistoryItem.text = detailModel.translate
             itemView.setOnClickListener {

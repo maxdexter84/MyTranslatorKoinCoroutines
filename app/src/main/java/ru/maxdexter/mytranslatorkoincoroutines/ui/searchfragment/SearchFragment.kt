@@ -5,10 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.MultiAutoCompleteTextView
-import android.widget.MultiAutoCompleteTextView.CommaTokenizer
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -18,7 +14,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.repository.model.AppState
-import ru.maxdexter.repository.model.DetailModel
+import ru.maxdexter.repository.db.DetailModel
 import ru.maxdexter.repository.model.SearchResult
 import ru.maxdexter.translatorcoincoroutine.R
 import ru.maxdexter.translatorcoincoroutine.databinding.SearchFragmentBinding
@@ -53,7 +49,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             imageUrl = it.meanings!![0].imageUrl ?: ""
 
         }
-        return DetailModel(word, description, imageUrl)
+        return DetailModel(word, description, imageUrl = imageUrl)
     }
 
     private fun textListener() {

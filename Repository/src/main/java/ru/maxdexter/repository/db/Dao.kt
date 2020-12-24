@@ -1,8 +1,8 @@
 package ru.maxdexter.repository.db
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
 import kotlinx.coroutines.flow.Flow
-import ru.maxdexter.repository.model.DetailModel
 
 
 @Dao
@@ -16,4 +16,8 @@ interface Dao {
 
     @Query("SELECT * FROM detailmodel")
     fun getAll(): Flow<List<DetailModel>>
+
+
+    @Query("SELECT * FROM detailmodel WHERE bookmark=:flag")
+    fun getAllBookmarks(flag: Boolean = true): LiveData<List<DetailModel>>
 }

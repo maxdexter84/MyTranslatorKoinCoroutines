@@ -7,6 +7,8 @@ import org.koin.dsl.module
 import ru.maxdexter.repository.db.Database
 import ru.maxdexter.repository.repository.Repository
 import ru.maxdexter.mytranslatorkoincoroutines.ui.MainViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.bookmarkfragment.BookmarkViewModel
+import ru.maxdexter.mytranslatorkoincoroutines.ui.detailfragment.DetailViewModel
 import ru.maxdexter.mytranslatorkoincoroutines.ui.historyfragment.HistoryViewModel
 import ru.maxdexter.mytranslatorkoincoroutines.ui.searchfragment.SearchViewModel
 
@@ -25,4 +27,6 @@ val mainScreen = module {
     single { MainViewModel(get(named("REPO"))) }
     viewModel { SearchViewModel(get(named("REPO"))) }
     viewModel { HistoryViewModel(get(named("REPO"))) }
+    viewModel { DetailViewModel(get(named("REPO"))) }
+    viewModel { BookmarkViewModel(get(named("REPO"))) }
 }
