@@ -12,4 +12,5 @@ data class DetailModel (
     val word: String = "",
     val translate: String = "",
     var bookmark: Boolean = false,
-    val imageUrl: String = "") : Parcelable
+    val imageUrl: String = "",
+    var isInHistoryList: Boolean = true) : Parcelable

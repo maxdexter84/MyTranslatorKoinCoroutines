@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.maxdexter.repository.model.AppState
 import ru.maxdexter.repository.db.DetailModel
@@ -22,7 +24,7 @@ class HistoryViewModel(private val repository: Repository) : ViewModel() {
         _historyData.value = AppState.Loading
         viewModelScope.launch {
             try {
-                repository.getAllHistory().collect {
+                repository.getAllHistory().map{ it.filter { item -> item.isInHistoryList } }.collect {
                     _historyData.value = AppState.Success(it)
                     itemList = it
                 }
@@ -36,8 +38,11 @@ class HistoryViewModel(private val repository: Repository) : ViewModel() {
     fun deleteHistoryItem(position: Int) {
         if (itemList != null){
             val item = itemList?.get(position)
+            if (item != null) {
+                item.isInHistoryList = false
+            }
             viewModelScope.launch {
-                item?.let { repository.deleteHistory(it) }
+                item?.let { repository.addHistory(it) }
             }
         }
 
