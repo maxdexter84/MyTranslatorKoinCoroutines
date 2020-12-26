@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.maxdexter.mytranslatorkoincoroutines.adapter.MainAdapter
+import ru.maxdexter.mytranslatorkoincoroutines.utils.CheckNetwork
 import ru.maxdexter.mytranslatorkoincoroutines.utils.parseLoadError
 import ru.maxdexter.repository.model.AppState
 import ru.maxdexter.repository.db.DetailModel
@@ -56,13 +58,21 @@ class SearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun textListener() {
-        binding.etSearch.doAfterTextChanged { s ->
-            if (s != null) {
-                if (s.length >= 2) {
-                    searchViewModel.getData(s.toString(), true)
+        CheckNetwork(requireContext()).observe(viewLifecycleOwner,{
+            when(it){
+                true -> {
+                    binding.etSearch.doAfterTextChanged { s ->
+                        if (s != null) {
+                            if (s.length >= 2) {
+                                searchViewModel.getData(s.toString(), it )
+                            }
+                        }
+                    }
                 }
+                false -> Toast.makeText(requireContext(),"Нет соединения", Toast.LENGTH_LONG).show()
             }
-        }
+        })
+
     }
 
     @InternalCoroutinesApi
