@@ -14,7 +14,8 @@
     <color name="primaryTextColorТшпре">#FFFFFF</color>
 
 
- 
+    <color name="colorTextLightTheme">#494747</color>
+    <color name="colorIconLightTheme">#837C7C</color>
 
 
 </resources>

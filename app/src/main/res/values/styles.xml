@@ -11,7 +11,7 @@
         <item name="bottomNavStyle">@style/BottomNavigationViewLight</item>
         <item name="headerTextStyle">@style/HeaderTextStyle</item>
         <item name="descriptionTextStyle">@style/DescriptionTextStyle</item>
-
+        <item name="editTextStyle">@style/EditTextStyle</item>
     </style>
 
 
@@ -40,7 +40,7 @@
     <style name="DescriptionTextStyle">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/colorTextLightTheme</item>
     </style>
 
     <style name="DescriptionTextStyleNight">
@@ -52,7 +52,7 @@
     <style name="HeaderTextStyle">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/colorTextLightTheme</item>
     </style>
     <style name="HeaderTextStyleNight">
         <item name="android:textColor">@android:color/white</item>
@@ -66,8 +66,8 @@
 
     <style name="BottomNavigationViewLight">
         <item name="backgroundTint">@color/colorPrimary</item>
-        <item name="itemIconTint">@android:color/black</item>
-        <item name="itemTextColor">@android:color/black</item>
+        <item name="itemIconTint">@color/colorIconLightTheme</item>
+        <item name="itemTextColor">@color/colorTextLightTheme</item>
         <item name="itemTextAppearanceActive">@color/colorAccent</item>
     </style>
 
@@ -79,8 +79,10 @@
     </style>
     
     
-    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
-
+    <style name="EditTextStyle" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColorHint">@color/colorTextLightTheme</item>
+        <item name="android:textColor">@color/colorTextLightTheme</item>
+        <item name="colorOnSurface">@color/colorAccent</item>
     </style>
 
     <style name="EditTextStyleNight" parent="Widget.AppCompat.AutoCompleteTextView">
