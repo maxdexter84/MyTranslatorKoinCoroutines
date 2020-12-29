@@ -1,7 +1,9 @@
 package ru.maxdexter.mytranslatorkoincoroutines.ui
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -18,6 +20,7 @@ class MainActivity: AppCompatActivity() {
     private val viewModel: MainViewModel by currentScope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
