@@ -70,6 +70,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    style="?descriptionTextStyle"
                     android:id="@+id/error_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

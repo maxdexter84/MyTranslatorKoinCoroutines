@@ -45,4 +45,8 @@
             android:name="detailModel"
             app:argType="ru.maxdexter.repository.db.DetailModel" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment2"
+        android:name="ru.maxdexter.mytranslatorkoincoroutines.ui.settingsfragment.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

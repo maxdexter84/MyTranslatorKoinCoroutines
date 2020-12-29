@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/tv_header_history_item"
-            style="@style/HeaderTextStyle"
+            style="?headerTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/tv_description_history_item"
-            style="@style/DescriptionTextStyle"
+            style="?descriptionTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/color_gray"
+
+            style="?divider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
              />

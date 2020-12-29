@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
             tools:text="Header"
-            style="@style/HeaderTextStyle" />
+            style="?headerTextStyle" />
 
         <TextView
             android:id="@+id/tv_description"
@@ -27,12 +27,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
             tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            style="@style/DescriptionTextStyle" />
+            style="?descriptionTextStyle" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/margin_small"
+            style="div"
             android:background="@color/color_gray" />
     </LinearLayout>
 </layout>
